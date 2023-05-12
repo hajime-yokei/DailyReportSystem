@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>日報管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/employee/detail.css}">
+</head>
+<body>
+    <h1>日報管理システム</h1>
+    <h2>id:[[${employee.id}]]の従業員情報　詳細ページ</h2>
+        <table th:object="${employee}" class="employee">
+            <tr>
+                <td>社員番号</td>
+                <td th:text="*{authentication.code}"></td>
+            </tr>
+            <tr>
+                <td>氏名</td>
+                <td th:text="*{name}"></td>
+            </tr>
+            <tr>
+                <td>権限</td>
+                <td th:text="*{authentication.role}"></td>
+            </tr>
+            <tr>
+                <td>登録日時</td>
+                <td th:text="*{created_at}"></td>
+            <tr>
+                <td>更新日時</td>
+                <td th:text="*{updated_at}"></td>
+            </tr>
+        </table>
+    <a th:href="@{/employee/update/{id}(id=${employee.id})}">この従業員情報を編集する</a><br/>
+    <a th:href="@{/employee/list}">一覧に戻る</a>
+</body>
+</html>

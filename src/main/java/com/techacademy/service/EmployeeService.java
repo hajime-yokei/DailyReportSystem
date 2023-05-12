@@ -3,6 +3,7 @@ package com.techacademy.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techacademy.entity.Employee;
 import com.techacademy.repository.EmployeeRepository;
@@ -18,5 +19,15 @@ public class EmployeeService {
     public List<Employee> getEmployeeList(){
         return employeeRepository.findAll();
     }
+
+    @Transactional
+    public Employee saveEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+    public Employee getEmployee(Integer id) {
+        return employeeRepository.findById(id).get();
+    }
+
 
 }
