@@ -25,6 +25,7 @@ public class EmployeeController {
     @GetMapping("/list")
     public String getList(Model model) {
         model.addAttribute("employeelist", service.getEmployeeList());
+        model.addAttribute("employeesize", service.getEmployeeList().size());
         return "employee/list";
     }
 
@@ -56,8 +57,13 @@ public class EmployeeController {
     }
 
     @PostMapping("/update/{id}")
-    public String postEmployee(Employee employee) {
-        service.saveEmployee(employee);
+    public String postEmployee(@PathVariable("id") Integer id, Employee employee, Model model) {
+        Employee employee1 = service.getEmployee(id);
+        employee1.setName(employee.getName());
+        employee1.getAuthentication().setPassword(employee.getAuthentication().getPassword());
+        employee1.getAuthentication().setRole(employee.getAuthentication().getRole());
+        employee1.setUpdated_at(LocalDateTime.now());
+        service.saveEmployee(employee1);
         return "redirect:/employee/list";
     }
 
